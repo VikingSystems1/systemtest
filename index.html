@@ -222,17 +222,17 @@
             gap: .75rem;
         }
         .nav-logo-img {
-            height: 110px;
+            height: 130px;
             width: auto;
             position: relative;
-            top: 28px;          /* hangs 28px below nav bottom line */
-            filter: drop-shadow(0 6px 20px rgba(27,42,74,.30));
+            top: 32px;          /* hangs 32px below nav bottom line */
+            filter: drop-shadow(0 6px 24px rgba(27,42,74,.35));
             flex-shrink: 0;
         }
         /* ── Mobile: keep logo inside nav, no overflow ── */
         @media (max-width: 640px) {
             .nav-logo-img {
-                height: 56px;
+                height: 60px;
                 top: 0;
             }
             .logo-text-top { font-size: 1rem; }
@@ -499,16 +499,16 @@
             </div>
 
             <!-- Photo + Infographic -->
-            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-                <div class="rounded-2xl overflow-hidden shadow-xl" style="min-height:320px;">
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                <div class="rounded-2xl overflow-hidden shadow-xl" style="height:420px;">
                     <img src="assets/worker-smiling.jpg"
                          alt="Uniformed valet worker collecting trash at apartment door"
-                         class="w-full h-full object-cover">
+                         class="w-full h-full object-cover object-center">
                 </div>
-                <div class="rounded-2xl overflow-hidden shadow-xl">
+                <div class="rounded-2xl shadow-xl flex items-center justify-center p-4" style="background:#fff;border:1px solid #E2E8F0;">
                     <img src="attached_assets/Modernizing_Multifamily_Waste_Management_1783127635059.png"
                          alt="Valet Trash Advantage – How the Service Works"
-                         class="w-full h-full object-cover">
+                         class="w-full h-auto object-contain rounded-xl">
                 </div>
             </div>
         </div>
@@ -553,16 +553,16 @@
             </div>
 
             <!-- Photo + Infographic -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-                <div class="rounded-2xl overflow-hidden shadow-xl" style="min-height:320px;">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                <div class="rounded-2xl overflow-hidden shadow-xl" style="height:420px;">
                     <img src="assets/happy-residents.jpg"
                          alt="Happy apartment residents"
-                         class="w-full h-full object-cover">
+                         class="w-full h-full object-cover object-center">
                 </div>
-                <div class="rounded-2xl overflow-hidden shadow-xl">
+                <div class="rounded-2xl shadow-xl flex items-center justify-center p-4" style="background:#fff;border:1px solid #E2E8F0;">
                     <img src="attached_assets/Valet_Trash_Service_Community_Benefits_1783127635060.png"
                          alt="Valet Trash Community Benefits"
-                         class="w-full h-full object-cover">
+                         class="w-full h-auto object-contain rounded-xl">
                 </div>
             </div>
         </div>
@@ -714,16 +714,16 @@
             </div>
 
             <!-- Business Overview infographic -->
-            <div class="mt-14 grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-                <div class="rounded-2xl overflow-hidden shadow-xl">
+            <div class="mt-14 grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                <div class="rounded-2xl shadow-xl flex items-center justify-center p-4" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);">
                     <img src="attached_assets/Valet_Trash_Service_Business_Overview_1783127635060.png"
                          alt="Viking Valet Waste Business Overview"
-                         class="w-full h-full object-cover">
+                         class="w-full h-auto object-contain rounded-xl">
                 </div>
-                <div class="rounded-2xl overflow-hidden shadow-xl" style="min-height:320px;">
+                <div class="rounded-2xl overflow-hidden shadow-xl" style="height:420px;">
                     <img src="assets/clean-hallway.jpg"
                          alt="Pristine apartment hallway after nightly valet service"
-                         class="w-full h-full object-cover">
+                         class="w-full h-full object-cover object-center">
                 </div>
             </div>
         </div>
