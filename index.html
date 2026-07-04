@@ -213,11 +213,27 @@
             color: var(--navy);
             margin-bottom: .4rem;
         }
-        /* ── Logo sizing ── */
-        .logo-img {
-            height: 52px;
+        /* ── Logo ── */
+        .logo-icon {
+            height: 48px;
             width: auto;
             object-fit: contain;
+            display: block;
+        }
+        .logo-text-top {
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: .04em;
+            color: var(--navy);
+            line-height: 1.1;
+        }
+        .logo-text-bottom {
+            font-size: .65rem;
+            font-weight: 700;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            line-height: 1;
         }
     </style>
 </head>
@@ -230,11 +246,14 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
 
             <!-- Logo -->
-            <a href="#" class="flex items-center gap-1 shrink-0">
-                <img src="attached_assets/new_logo_1783127675762.png"
-                     alt="Viking Valet Waste"
-                     class="logo-img"
-                     style="background:transparent;">
+            <a href="#" class="flex items-center gap-2.5 shrink-0">
+                <img src="assets/logo-icon.png"
+                     alt="Viking Valet Waste icon"
+                     class="logo-icon">
+                <div>
+                    <div class="logo-text-top">VIKING VALET</div>
+                    <div class="logo-text-bottom">Waste Solutions</div>
+                </div>
             </a>
 
             <!-- Desktop nav links -->
@@ -256,10 +275,20 @@
     <!-- ═══════════════════════════════════════════════════════════
          HERO
     ═══════════════════════════════════════════════════════════ -->
-    <header class="section-navy relative pt-40 pb-28 overflow-hidden">
-        <!-- subtle gold radial glow -->
+    <header class="relative pt-40 pb-28 overflow-hidden"
+            style="background-color:var(--navy);">
+        <!-- Hero photo background -->
+        <div class="absolute inset-0" style="
+            background-image: url('assets/hero-bg.jpg');
+            background-size: cover;
+            background-position: center 40%;
+            opacity: .22;
+        "></div>
+        <!-- Navy overlay for legibility -->
+        <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(27,42,74,.85) 0%, rgba(27,42,74,.92) 60%, rgba(27,42,74,1) 100%);"></div>
+        <!-- gold glow -->
         <div class="absolute inset-0 pointer-events-none"
-             style="background:radial-gradient(ellipse at 70% 40%, rgba(201,168,76,.18) 0%, transparent 65%);"></div>
+             style="background:radial-gradient(ellipse at 70% 30%, rgba(201,168,76,.12) 0%, transparent 60%);"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <span class="pill mb-6" style="background:rgba(201,168,76,.15);color:var(--gold);border-color:rgba(201,168,76,.4);">
@@ -384,11 +413,18 @@
                 </div>
             </div>
 
-            <!-- Infographic showcase -->
-            <div class="mt-16 rounded-2xl overflow-hidden shadow-xl">
-                <img src="attached_assets/Modernizing_Multifamily_Waste_Management_1783127635059.png"
-                     alt="Valet Trash Advantage – How the Service Works"
-                     class="infographic-img">
+            <!-- Photo + Infographic -->
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                <div class="rounded-2xl overflow-hidden shadow-xl" style="min-height:320px;">
+                    <img src="assets/worker-smiling.jpg"
+                         alt="Uniformed valet worker collecting trash at apartment door"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="rounded-2xl overflow-hidden shadow-xl">
+                    <img src="attached_assets/Modernizing_Multifamily_Waste_Management_1783127635059.png"
+                         alt="Valet Trash Advantage – How the Service Works"
+                         class="w-full h-full object-cover">
+                </div>
             </div>
         </div>
     </section>
@@ -431,11 +467,18 @@
                 </div>
             </div>
 
-            <!-- Community Benefits infographic -->
-            <div class="rounded-2xl overflow-hidden shadow-xl">
-                <img src="attached_assets/Valet_Trash_Service_Community_Benefits_1783127635060.png"
-                     alt="Valet Trash Community Benefits"
-                     class="infographic-img">
+            <!-- Photo + Infographic -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                <div class="rounded-2xl overflow-hidden shadow-xl" style="min-height:320px;">
+                    <img src="assets/happy-residents.jpg"
+                         alt="Happy apartment residents"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="rounded-2xl overflow-hidden shadow-xl">
+                    <img src="attached_assets/Valet_Trash_Service_Community_Benefits_1783127635060.png"
+                         alt="Valet Trash Community Benefits"
+                         class="w-full h-full object-cover">
+                </div>
             </div>
         </div>
     </section>
@@ -586,10 +629,17 @@
             </div>
 
             <!-- Business Overview infographic -->
-            <div class="mt-14 rounded-2xl overflow-hidden">
-                <img src="attached_assets/Valet_Trash_Service_Business_Overview_1783127635060.png"
-                     alt="Viking Valet Waste Business Overview"
-                     class="infographic-img">
+            <div class="mt-14 grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                <div class="rounded-2xl overflow-hidden shadow-xl">
+                    <img src="attached_assets/Valet_Trash_Service_Business_Overview_1783127635060.png"
+                         alt="Viking Valet Waste Business Overview"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="rounded-2xl overflow-hidden shadow-xl" style="min-height:320px;">
+                    <img src="assets/clean-hallway.jpg"
+                         alt="Pristine apartment hallway after nightly valet service"
+                         class="w-full h-full object-cover">
+                </div>
             </div>
         </div>
     </section>
@@ -756,10 +806,14 @@
     ═══════════════════════════════════════════════════════════ -->
     <footer class="section-navy py-12 border-t" style="border-color:rgba(255,255,255,.08);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="flex items-center gap-3">
-                <img src="attached_assets/new_logo_1783127675762.png"
-                     alt="Viking Valet Waste"
-                     style="height:42px;width:auto;filter:brightness(0) invert(1);opacity:.85;">
+            <div class="flex items-center gap-2.5">
+                <img src="assets/logo-icon.png"
+                     alt="Viking Valet Waste icon"
+                     style="height:40px;width:auto;filter:brightness(0) invert(1);opacity:.9;">
+                <div>
+                    <div style="font-size:1rem;font-weight:800;letter-spacing:.04em;color:#fff;line-height:1.1;">VIKING VALET</div>
+                    <div style="font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);line-height:1;">Waste Solutions</div>
+                </div>
             </div>
             <div class="text-center text-sm" style="color:rgba(255,255,255,.55);">
                 <p>&copy; 2026 Viking Valet Waste. All Rights Reserved.</p>
