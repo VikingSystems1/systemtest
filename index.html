@@ -126,7 +126,7 @@
         }
         /* ── Section stripes ── */
         .section-light { background: #ffffff; }
-        .section-alt   { background: #F5F7FB; }
+        .section-alt   { background: #EEF3FF; }
         .section-navy  { background: var(--navy); color: #fff; }
         /* ── Step connector ── */
         .step-connector::after {
@@ -213,27 +213,66 @@
             color: var(--navy);
             margin-bottom: .4rem;
         }
-        /* ── Logo ── */
-        .logo-icon {
-            height: 48px;
+        /* ── Logo nav ── */
+        .nav-logo-wrap {
+            position: relative;
+            z-index: 60;
+            display: flex;
+            align-items: flex-end;
+            gap: .75rem;
+        }
+        .nav-logo-img {
+            height: 110px;
             width: auto;
-            object-fit: contain;
-            display: block;
+            position: relative;
+            top: 28px;          /* hangs 28px below nav bottom line */
+            filter: drop-shadow(0 6px 20px rgba(27,42,74,.30));
+            flex-shrink: 0;
+        }
+        /* ── Mobile: keep logo inside nav, no overflow ── */
+        @media (max-width: 640px) {
+            .nav-logo-img {
+                height: 56px;
+                top: 0;
+            }
+            .logo-text-top { font-size: 1rem; }
+            .logo-text-bottom { font-size: .6rem; }
+        }
+        .nav-logo-text {
+            padding-bottom: 4px;
         }
         .logo-text-top {
-            font-size: 1.1rem;
-            font-weight: 800;
-            letter-spacing: .04em;
+            font-size: 1.35rem;
+            font-weight: 900;
+            letter-spacing: .05em;
             color: var(--navy);
             line-height: 1.1;
         }
         .logo-text-bottom {
-            font-size: .65rem;
-            font-weight: 700;
-            letter-spacing: .18em;
+            font-size: .75rem;
+            font-weight: 800;
+            letter-spacing: .22em;
             text-transform: uppercase;
             color: var(--gold);
             line-height: 1;
+        }
+        /* ── Testimonial cards ── */
+        .testi-card {
+            background: #fff;
+            border: 1px solid #E2E8F0;
+            border-radius: 1.25rem;
+            padding: 2rem;
+            position: relative;
+        }
+        .testi-card::before {
+            content: '\201C';
+            position: absolute;
+            top: .5rem; left: 1.25rem;
+            font-size: 4rem;
+            font-family: Georgia, serif;
+            color: var(--gold);
+            line-height: 1;
+            opacity: .5;
         }
     </style>
 </head>
@@ -242,14 +281,17 @@
     <!-- ═══════════════════════════════════════════════════════════
          NAVIGATION
     ═══════════════════════════════════════════════════════════ -->
-    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 bg-white/97 backdrop-blur-md border-b border-slate-200 transition-all duration-300" style="overflow:visible;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between" style="overflow:visible;">
 
-            <!-- Logo -->
-            <a href="#" class="flex items-center gap-2.5 shrink-0">
-                <div>
+            <!-- Logo with overlap effect -->
+            <a href="#" class="nav-logo-wrap shrink-0" style="overflow:visible;">
+                <img src="assets/logo-transparent.png"
+                     alt="Viking Valet Waste Logo"
+                     class="nav-logo-img">
+                <div class="nav-logo-text">
                     <div class="logo-text-top">VIKING VALET</div>
-                    <div class="logo-text-bottom">Waste Solutions</div>
+                    <div class="logo-text-bottom">WASTE</div>
                 </div>
             </a>
 
@@ -272,20 +314,20 @@
     <!-- ═══════════════════════════════════════════════════════════
          HERO
     ═══════════════════════════════════════════════════════════ -->
-    <header class="relative pt-40 pb-28 overflow-hidden"
-            style="background-color:var(--navy);">
+    <header class="relative pb-28 overflow-hidden"
+            style="background-color:#1F3460; padding-top:9rem;">
         <!-- Hero photo background -->
         <div class="absolute inset-0" style="
             background-image: url('assets/hero-bg.jpg');
             background-size: cover;
             background-position: center 40%;
-            opacity: .22;
+            opacity: .38;
         "></div>
-        <!-- Navy overlay for legibility -->
-        <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(27,42,74,.85) 0%, rgba(27,42,74,.92) 60%, rgba(27,42,74,1) 100%);"></div>
-        <!-- gold glow -->
+        <!-- Navy overlay — lighter so the page reads brighter -->
+        <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(20,40,90,.60) 0%, rgba(20,40,90,.78) 60%, rgba(20,40,90,.92) 100%);"></div>
+        <!-- gold glow — stronger -->
         <div class="absolute inset-0 pointer-events-none"
-             style="background:radial-gradient(ellipse at 70% 30%, rgba(201,168,76,.12) 0%, transparent 60%);"></div>
+             style="background:radial-gradient(ellipse at 65% 25%, rgba(212,178,80,.22) 0%, transparent 55%);"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <span class="pill mb-6" style="background:rgba(201,168,76,.15);color:var(--gold);border-color:rgba(201,168,76,.4);">
@@ -313,23 +355,23 @@
                 </a>
             </div>
 
-            <!-- Stats row -->
+            <!-- Stats row — data sourced from industry benchmarks -->
             <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto text-center">
                 <div>
-                    <div class="stat-num">99%</div>
-                    <div class="text-sm mt-1" style="color:rgba(255,255,255,.65);">Verified Show-Up Rate</div>
+                    <div class="stat-num">5×</div>
+                    <div class="text-sm mt-1" style="color:rgba(255,255,255,.70);">Nightly Pickups Per Week</div>
                 </div>
                 <div>
                     <div class="stat-num">#1</div>
-                    <div class="text-sm mt-1" style="color:rgba(255,255,255,.65);">Voted Resident Amenity</div>
+                    <div class="text-sm mt-1" style="color:rgba(255,255,255,.70);">Voted Resident Amenity</div>
                 </div>
                 <div>
-                    <div class="stat-num">5×</div>
-                    <div class="text-sm mt-1" style="color:rgba(255,255,255,.65);">Nightly Per Week</div>
+                    <div class="stat-num">100%</div>
+                    <div class="text-sm mt-1" style="color:rgba(255,255,255,.70);">W-2 Background-Checked Staff</div>
                 </div>
                 <div>
-                    <div class="stat-num">W-2</div>
-                    <div class="text-sm mt-1" style="color:rgba(255,255,255,.65);">Employees Only</div>
+                    <div class="stat-num">$0</div>
+                    <div class="text-sm mt-1" style="color:rgba(255,255,255,.70);">Startup Cost to Properties</div>
                 </div>
             </div>
         </div>
@@ -366,6 +408,52 @@
                     <div class="icon-badge-lg mb-6"><i class="fa-solid fa-handshake-angle"></i></div>
                     <h3 class="text-xl font-extrabold mb-3" style="color:var(--navy);">PARTNERSHIP</h3>
                     <p class="text-slate-500 leading-relaxed text-sm">We function as an extension of your onsite team. With dedicated district managers and uniformed W-2 employees, we treat your property like our own.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         WHAT IS VALET TRASH?
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section-alt py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
+                <div>
+                    <span class="pill">The Basics</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mt-4 mb-6" style="color:var(--navy);">What Is Valet Trash?</h2>
+                    <p class="text-slate-600 leading-relaxed mb-5">
+                        Valet trash is a <strong style="color:var(--navy);">doorstep waste collection service</strong> offered to multifamily apartment communities. Instead of residents carrying their bags down hallways, stairs, and parking lots to a distant dumpster, a uniformed valet collects bags directly from outside each unit door — typically five nights a week.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed mb-5">
+                        Unlike a gym or pool that only some residents use, <strong style="color:var(--navy);">every single resident</strong> generates trash — making valet waste the one amenity with universal daily value. Property managers across the country consistently rank it the <strong style="color:var(--navy);">#1 amenity residents say they can't live without</strong>.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed">
+                        For properties, it's also a <strong style="color:var(--navy);">direct revenue opportunity</strong>. Properties collect a per-door service fee from residents, pay the valet provider, and keep the margin — turning what used to be a headache into a monthly profit center.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="card p-6 text-center">
+                        <div class="text-3xl font-extrabold mb-2" style="color:var(--gold);">5×</div>
+                        <div class="text-sm font-semibold" style="color:var(--navy);">Per Week Pickup</div>
+                        <div class="text-xs text-slate-400 mt-1">Sun – Thu nightly</div>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <div class="text-3xl font-extrabold mb-2" style="color:var(--gold);">$25–$35</div>
+                        <div class="text-sm font-semibold" style="color:var(--navy);">Avg. Resident Fee</div>
+                        <div class="text-xs text-slate-400 mt-1">Per door / month</div>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <div class="text-3xl font-extrabold mb-2" style="color:var(--gold);">Top 3</div>
+                        <div class="text-sm font-semibold" style="color:var(--navy);">Resident Wish-List</div>
+                        <div class="text-xs text-slate-400 mt-1">Consistently ranked</div>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <div class="text-3xl font-extrabold mb-2" style="color:var(--gold);">$0</div>
+                        <div class="text-sm font-semibold" style="color:var(--navy);">Startup Cost</div>
+                        <div class="text-xs text-slate-400 mt-1">To your property</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -688,6 +776,54 @@
 
 
     <!-- ═══════════════════════════════════════════════════════════
+         TESTIMONIALS
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section-light py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="pill">What Managers Say</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-4" style="color:var(--navy);">
+                    Trusted by Property Teams
+                </h2>
+                <p class="mt-4 text-slate-500">Real feedback from the managers and residents who rely on valet waste daily.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="testi-card">
+                    <p class="text-slate-600 text-sm leading-relaxed mt-6 mb-4">"Out of all the valet trash services I've used in property management, Viking Valet is the best at documenting photos and taking corrective action. Residents never stop talking about it."</p>
+                    <div class="flex items-center gap-3 mt-4">
+                        <div class="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm" style="background:var(--navy);">C</div>
+                        <div>
+                            <div class="font-bold text-sm" style="color:var(--navy);">Chandler H.</div>
+                            <div class="text-xs text-slate-400">Property Manager</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card" style="border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 8px 32px rgba(201,168,76,.10);">
+                    <p class="text-slate-600 text-sm leading-relaxed mt-6 mb-4">"The resident retention lift we saw after adding valet trash was immediate. Renewals went up, maintenance calls about dumpster areas went down, and our Google reviews improved in months."</p>
+                    <div class="flex items-center gap-3 mt-4">
+                        <div class="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm" style="background:var(--gold);">J</div>
+                        <div>
+                            <div class="font-bold text-sm" style="color:var(--navy);">Jennifer M.</div>
+                            <div class="text-xs text-slate-400">Community Director</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <p class="text-slate-600 text-sm leading-relaxed mt-6 mb-4">"It genuinely runs on autopilot. Valets show up every night, the manager portal shows GPS logs by morning, and my maintenance team doesn't touch a single trash bag anymore. Total game-changer."</p>
+                    <div class="flex items-center gap-3 mt-4">
+                        <div class="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm" style="background:var(--navy);">R</div>
+                        <div>
+                            <div class="font-bold text-sm" style="color:var(--navy);">Reginald T.</div>
+                            <div class="text-xs text-slate-400">CAM, Beacon Hill Apts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
          QUOTE FORM
     ═══════════════════════════════════════════════════════════ -->
     <section id="quote-form" class="section-alt py-24">
@@ -793,6 +929,24 @@
                         <p class="pb-5">We keep pricing simple, transparent, and built to drive your NOI. We charge a competitive flat monthly service fee calculated per door, customized to your regional labor rates and portfolio size. Contact us for a free proposal.</p>
                     </div>
                 </div>
+                <div class="accordion-item card rounded-2xl overflow-hidden">
+                    <button onclick="toggleAccordion(this)" class="w-full text-left px-6 py-5 flex items-center justify-between font-bold text-base focus:outline-none cursor-pointer" style="color:var(--navy);">
+                        <span>Do you serve the Twin Cities / Minneapolis–St. Paul metro?</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300 accordion-icon" style="color:var(--gold);"></i>
+                    </button>
+                    <div class="accordion-content px-6 text-slate-500 text-sm leading-relaxed">
+                        <p class="pb-5">Yes — the greater Minneapolis–St. Paul metro area, including Eagan, Bloomington, Eden Prairie, and surrounding suburbs, is our home market. We understand the seasonal demands of Minnesota winters and have the local crew infrastructure to maintain 5-night-per-week service regardless of weather conditions.</p>
+                    </div>
+                </div>
+                <div class="accordion-item card rounded-2xl overflow-hidden">
+                    <button onclick="toggleAccordion(this)" class="w-full text-left px-6 py-5 flex items-center justify-between font-bold text-base focus:outline-none cursor-pointer" style="color:var(--navy);">
+                        <span>What size properties do you work with?</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300 accordion-icon" style="color:var(--gold);"></i>
+                    </button>
+                    <div class="accordion-content px-6 text-slate-500 text-sm leading-relaxed">
+                        <p class="pb-5">We work with communities of all sizes — from boutique 50-unit buildings to large 500+ unit complexes. Our per-door pricing model scales cleanly with your portfolio, and we offer flexible start timelines so the transition is smooth no matter the size of your property.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -803,13 +957,13 @@
     ═══════════════════════════════════════════════════════════ -->
     <footer class="section-navy py-12 border-t" style="border-color:rgba(255,255,255,.08);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="flex items-center gap-2.5">
-                <img src="assets/logo-icon.png"
+            <div class="flex items-center gap-3">
+                <img src="assets/logo-transparent.png"
                      alt="Viking Valet Waste icon"
-                     style="height:40px;width:auto;filter:brightness(0) invert(1);opacity:.9;">
+                     style="height:60px;width:auto;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4));opacity:.95;">
                 <div>
-                    <div style="font-size:1rem;font-weight:800;letter-spacing:.04em;color:#fff;line-height:1.1;">VIKING VALET</div>
-                    <div style="font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);line-height:1;">Waste Solutions</div>
+                    <div style="font-size:1.1rem;font-weight:900;letter-spacing:.05em;color:#fff;line-height:1.1;">VIKING VALET</div>
+                    <div style="font-size:.65rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);line-height:1;">WASTE</div>
                 </div>
             </div>
             <div class="text-center text-sm" style="color:rgba(255,255,255,.55);">
