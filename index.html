@@ -222,17 +222,17 @@
             gap: .75rem;
         }
         .nav-logo-img {
-            height: 130px;
+            height: 150px;
             width: auto;
             position: relative;
-            top: 32px;          /* hangs 32px below nav bottom line */
-            filter: drop-shadow(0 6px 24px rgba(27,42,74,.35));
+            top: 36px;          /* hangs 36px below nav bottom line */
+            filter: drop-shadow(0 6px 24px rgba(27,42,74,.30));
             flex-shrink: 0;
         }
         /* ── Mobile: keep logo inside nav, no overflow ── */
         @media (max-width: 640px) {
             .nav-logo-img {
-                height: 60px;
+                height: 64px;
                 top: 0;
             }
             .logo-text-top { font-size: 1rem; }
@@ -286,6 +286,9 @@
 
             <!-- Logo with overlap effect -->
             <a href="#" class="nav-logo-wrap shrink-0" style="overflow:visible;">
+                <img src="assets/helm-transparent.png"
+                     alt="Viking Valet Waste Logo"
+                     class="nav-logo-img">
                 <div class="nav-logo-text">
                     <div class="logo-text-top">VIKING VALET</div>
                     <div class="logo-text-bottom">WASTE</div>
@@ -460,8 +463,16 @@
     <!-- ═══════════════════════════════════════════════════════════
          HOW IT WORKS
     ═══════════════════════════════════════════════════════════ -->
-    <section id="how-it-works" class="section-alt py-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="how-it-works" class="section-alt py-24" style="position:relative;overflow:hidden;">
+        <!-- worker photo as subtle section background -->
+        <div class="absolute inset-0" style="
+            background-image: url('assets/worker-smiling.jpg');
+            background-size: cover;
+            background-position: center 30%;
+            opacity: .10;
+        "></div>
+        <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(238,243,255,.92) 0%,rgba(238,243,255,.97) 100%);"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position:relative;z-index:1;">
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <span class="pill">The Process</span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold mt-4" style="color:var(--navy);">
@@ -495,17 +506,12 @@
                 </div>
             </div>
 
-            <!-- Photo + Infographic -->
-            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                <div class="rounded-2xl overflow-hidden shadow-xl" style="height:420px;">
-                    <img src="assets/worker-smiling.jpg"
-                         alt="Uniformed valet worker collecting trash at apartment door"
-                         class="w-full h-full object-cover object-center">
-                </div>
-                <div class="rounded-2xl shadow-xl flex items-center justify-center p-4" style="background:#fff;border:1px solid #E2E8F0;">
+            <!-- Infographic full-width -->
+            <div class="mt-16 max-w-4xl mx-auto">
+                <div class="rounded-2xl shadow-2xl overflow-hidden" style="background:#fff;border:1px solid #E2E8F0;">
                     <img src="attached_assets/Modernizing_Multifamily_Waste_Management_1783127635059.png"
                          alt="Valet Trash Advantage – How the Service Works"
-                         class="w-full h-auto object-contain rounded-xl">
+                         class="w-full h-auto block">
                 </div>
             </div>
         </div>
@@ -515,8 +521,16 @@
     <!-- ═══════════════════════════════════════════════════════════
          WIN-WIN-WIN IMPACT (Community Benefits)
     ═══════════════════════════════════════════════════════════ -->
-    <section class="section-light py-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="section-light py-24" style="position:relative;overflow:hidden;">
+        <!-- happy-residents photo as subtle section background -->
+        <div class="absolute inset-0" style="
+            background-image: url('assets/happy-residents.jpg');
+            background-size: cover;
+            background-position: center 40%;
+            opacity: .10;
+        "></div>
+        <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.97) 100%);"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position:relative;z-index:1;">
             <div class="text-center max-w-3xl mx-auto mb-14">
                 <span class="pill">Why It Works</span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold mt-4" style="color:var(--navy);">
@@ -549,17 +563,12 @@
                 </div>
             </div>
 
-            <!-- Photo + Infographic -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                <div class="rounded-2xl overflow-hidden shadow-xl" style="height:420px;">
-                    <img src="assets/happy-residents.jpg"
-                         alt="Happy apartment residents"
-                         class="w-full h-full object-cover object-center">
-                </div>
-                <div class="rounded-2xl shadow-xl flex items-center justify-center p-4" style="background:#fff;border:1px solid #E2E8F0;">
+            <!-- Infographic full-width -->
+            <div class="max-w-4xl mx-auto">
+                <div class="rounded-2xl shadow-2xl overflow-hidden" style="background:#fff;border:1px solid #E2E8F0;">
                     <img src="attached_assets/Valet_Trash_Service_Community_Benefits_1783127635060.png"
                          alt="Valet Trash Community Benefits"
-                         class="w-full h-auto object-contain rounded-xl">
+                         class="w-full h-auto block">
                 </div>
             </div>
         </div>
@@ -656,8 +665,16 @@
     <!-- ═══════════════════════════════════════════════════════════
          COMPARISON TABLE
     ═══════════════════════════════════════════════════════════ -->
-    <section class="section-navy py-24">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="section-navy py-24" style="position:relative;overflow:hidden;">
+        <!-- clean hallway as section background -->
+        <div class="absolute inset-0" style="
+            background-image: url('assets/clean-hallway.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: .12;
+        "></div>
+        <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(27,42,74,.88) 0%,rgba(27,42,74,.95) 100%);"></div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" style="position:relative;z-index:1;">
             <div class="text-center mb-14">
                 <span class="pill" style="background:rgba(201,168,76,.2);color:var(--gold);border-color:rgba(201,168,76,.4);">By the Numbers</span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4">
@@ -710,17 +727,12 @@
                 </table>
             </div>
 
-            <!-- Business Overview infographic -->
-            <div class="mt-14 grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                <div class="rounded-2xl shadow-xl flex items-center justify-center p-4" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);">
+            <!-- Business Overview infographic full-width -->
+            <div class="mt-14 max-w-4xl mx-auto">
+                <div class="rounded-2xl shadow-2xl overflow-hidden" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);">
                     <img src="attached_assets/Valet_Trash_Service_Business_Overview_1783127635060.png"
                          alt="Viking Valet Waste Business Overview"
-                         class="w-full h-auto object-contain rounded-xl">
-                </div>
-                <div class="rounded-2xl overflow-hidden shadow-xl" style="height:420px;">
-                    <img src="assets/clean-hallway.jpg"
-                         alt="Pristine apartment hallway after nightly valet service"
-                         class="w-full h-full object-cover object-center">
+                         class="w-full h-auto block">
                 </div>
             </div>
         </div>
