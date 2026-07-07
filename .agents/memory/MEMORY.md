@@ -1,1 +1,0 @@
-- [ImageMagick bg removal](imagemagick-bg.md) — use `magick img.png -fuzz 15% -transparent white out.png` to strip white logo backgrounds; PIL not available without Nix setup.
