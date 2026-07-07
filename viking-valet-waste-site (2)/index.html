@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viking Valet Waste | Luxury Doorstep Trash Pickup</title>
+    <link rel="icon" type="image/png" href="assets/viking-logo.png">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --navy:      #1B2A4A;
+            --navy-mid:  #243557;
+            --navy-light:#2E4270;
+            --gold:      #C9A84C;
+            --gold-light:#E0BE72;
+            --gold-pale: #FBF3DC;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: var(--navy);
+        }
+        /* ── Cards ── */
+        .card {
+            background: #ffffff;
+            border: 1px solid #E2E8F0;
+            border-radius: 1rem;
+            transition: box-shadow .25s, transform .25s;
+        }
+        .card:hover {
+            box-shadow: 0 8px 32px rgba(27,42,74,.10);
+            transform: translateY(-2px);
+        }
+        .card-alt {
+            background: #F5F7FB;
+            border: 1px solid #E2E8F0;
+            border-radius: 1rem;
+        }
+        /* ── Buttons ── */
+        .btn-primary {
+            background: var(--gold);
+            color: var(--navy);
+            font-weight: 700;
+            border-radius: .75rem;
+            transition: background .2s, transform .2s, box-shadow .2s;
+        }
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(201,168,76,.35);
+        }
+        .btn-primary:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--navy);
+            border: 2px solid var(--navy);
+            font-weight: 700;
+            border-radius: .75rem;
+            transition: background .2s, color .2s, transform .2s;
+        }
+        .btn-outline:hover {
+            background: var(--navy);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+        /* ── Gold icon badge ── */
+        .icon-badge {
+            background: var(--gold-pale);
+            color: var(--gold);
+            width: 3rem;
+            height: 3rem;
+            border-radius: .75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .icon-badge-lg {
+            background: var(--gold-pale);
+            color: var(--gold);
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        /* ── Tabs ── */
+        .tab-btn {
+            padding: .6rem 1.4rem;
+            border-radius: .6rem;
+            font-size: .875rem;
+            font-weight: 600;
+            color: #64748b;
+            transition: background .2s, color .2s;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+        }
+        .tab-btn.active {
+            background: var(--navy);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(27,42,74,.25);
+        }
+        /* ── Accordion ── */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .3s ease-out;
+        }
+        .accordion-item.open .accordion-content {
+            max-height: 220px;
+        }
+        .accordion-item.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+        /* ── Section stripes ── */
+        .section-light { background: #ffffff; }
+        .section-alt   { background: #EEF3FF; }
+        .section-navy  { background: var(--navy); color: #fff; }
+        /* ── Anchor scroll offset so headings clear the fixed navbar ── */
+        section[id] {
+            scroll-margin-top: 90px;
+        }
+        @media (min-width: 768px) {
+            section[id] {
+                scroll-margin-top: 130px;
+            }
+        }
+        /* ── Scroll reveal ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .7s ease-out, transform .7s ease-out;
+        }
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
+        /* ── Step connector ── */
+        .step-connector::after {
+            content: '';
+            position: absolute;
+            top: 2rem;
+            left: calc(50% + 2.5rem);
+            width: calc(100% - 5rem);
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold) 0%, var(--gold-pale) 100%);
+        }
+        /* ── Stat highlight ── */
+        .stat-num {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gold);
+            line-height: 1;
+        }
+        /* ── Comparison table ── */
+        .cmp-yes  { color: #16a34a; }
+        .cmp-no   { color: #dc2626; }
+        /* ── Navbar scroll shadow ── */
+        .nav-scrolled { box-shadow: 0 2px 16px rgba(27,42,74,.12); }
+        /* ── Gold underline headings ── */
+        .heading-underline {
+            display: inline-block;
+            position: relative;
+            padding-bottom: .35rem;
+        }
+        .heading-underline::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+        /* ── Gold pill badge ── */
+        .pill {
+            background: var(--gold-pale);
+            color: var(--gold);
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: .25rem .75rem;
+            border-radius: 999px;
+            border: 1px solid var(--gold-light);
+            display: inline-block;
+        }
+        /* ── Terminal mock ── */
+        .terminal {
+            background: var(--navy);
+            border-radius: .75rem;
+            padding: 1rem 1.25rem;
+            font-family: monospace;
+            font-size: .8rem;
+        }
+        /* ── Infographic section ── */
+        .infographic-img {
+            border-radius: 1rem;
+            box-shadow: 0 8px 40px rgba(27,42,74,.12);
+            width: 100%;
+        }
+        /* ── Form inputs ── */
+        .form-input {
+            width: 100%;
+            background: #F5F7FB;
+            border: 1.5px solid #E2E8F0;
+            border-radius: .75rem;
+            padding: .75rem 1rem;
+            font-size: .875rem;
+            color: var(--navy);
+            outline: none;
+            transition: border-color .2s;
+        }
+        .form-input:focus { border-color: var(--gold); }
+        .form-label {
+            display: block;
+            font-size: .75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--navy);
+            margin-bottom: .4rem;
+        }
+        .form-error {
+            color: #dc2626;
+            font-size: .8rem;
+            margin-top: .5rem;
+            display: none;
+        }
+        /* ── Logo nav ── */
+        .nav-logo-wrap {
+            position: relative;
+            z-index: 60;
+            display: flex;
+            align-items: flex-end;
+            gap: .75rem;
+        }
+        .nav-logo-img {
+            height: 152px;
+            width: auto;
+            position: relative;
+            filter: drop-shadow(0 6px 20px rgba(27,42,74,.25));
+            flex-shrink: 0;
+        }
+        /* ── Mobile: keep logo inside nav, no overflow ── */
+        @media (max-width: 640px) {
+            .nav-logo-img {
+                height: 64px;
+            }
+            .logo-text-top { font-size: 1.05rem; }
+            .logo-text-bottom { font-size: .65rem; }
+        }
+        .nav-logo-text {
+            padding-bottom: 4px;
+        }
+        .logo-text-top {
+            font-weight: 900;
+            letter-spacing: .05em;
+            color: var(--navy);
+            line-height: 1.1;
+        }
+        .logo-text-bottom {
+            font-weight: 800;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--navy);
+            line-height: 1;
+        }
+        /* ── Testimonial cards ── */
+        .testi-card {
+            background: #fff;
+            border: 1px solid #E2E8F0;
+            border-radius: 1.25rem;
+            padding: 2rem;
+            position: relative;
+        }
+        .testi-card::before {
+            content: '\201C';
+            position: absolute;
+            top: .5rem; left: 1.25rem;
+            font-size: 4rem;
+            font-family: Georgia, serif;
+            color: var(--gold);
+            line-height: 1;
+            opacity: .5;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- ═══════════════════════════════════════════════════════════
+         NAVIGATION
+    ═══════════════════════════════════════════════════════════ -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 bg-white/97 backdrop-blur-md border-b border-slate-200 transition-all duration-300" style="overflow:visible;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 md:h-36 flex items-center justify-between" style="overflow:visible;">
+
+            <!-- Logo with overlap effect -->
+            <a href="#" class="nav-logo-wrap shrink-0 flex-row font-bold text-center justify-between items-center" style="overflow:visible;">
+                <img src="assets/viking-logo.png"
+                     alt="Viking Valet Waste Logo"
+                     class="nav-logo-img">
+                <div class="nav-logo-text">
+                    <div class="logo-text-top text-left text-[26px] md:text-[40px] text-[color:var(--navy-mid)] font-extrabold">VIKING VALET</div>
+                    <div class="logo-text-bottom text-center text-[26px] md:text-[40px] text-[color:var(--navy-mid)]">WASTE</div>
+                </div>
+            </a>
+
+            <!-- Desktop nav links -->
+            <div class="hidden md:flex items-center text-sm text-center font-bold border-t-[0px] border-r-[0px] border-b-[0px] border-l-[0px] gap-[20px]" style="color:var(--navy);">
+                <a href="#pillars"    class="hover:text-yellow-600 transition-colors">Core Pillars</a>
+                <a href="#how-it-works" class="hover:text-yellow-600 transition-colors">How It Works</a>
+                <a href="#benefits"   class="hover:text-yellow-600 transition-colors">Benefits</a>
+                <a href="#technology" class="hover:text-yellow-600 transition-colors">Technology</a>
+                <a href="#faqs"       class="hover:text-yellow-600 transition-colors">FAQs</a>
+                <a href="#additional-services" class="hover:text-yellow-600 transition-colors">More Services</a>
+            </div>
+
+            <a href="mailto:Waste@VikingValetWaste.com?subject=Quote%20Request%20-%20Viking%20Valet%20Waste&body=Property%20Name%3A%0AApproximate%20Unit%20Count%3A%0ABest%20Phone%20Number%3A%0A" class="btn-primary px-5 py-2.5 text-sm hidden sm:inline-block text-center">
+                Request a Quote
+            </a>
+
+            <!-- Mobile menu toggle -->
+            <button onclick="toggleMobileMenu()" id="mobile-menu-btn" class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg" style="color:var(--navy);" aria-label="Toggle menu" aria-expanded="false">
+                <i class="fa-solid fa-bars text-xl" id="mobile-menu-icon"></i>
+            </button>
+        </div>
+
+        <!-- Mobile dropdown menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white">
+            <div class="px-4 py-4 flex flex-col gap-1 text-sm font-bold" style="color:var(--navy);">
+                <a href="#pillars" onclick="closeMobileMenu()" class="py-2.5 border-b border-slate-100">Core Pillars</a>
+                <a href="#how-it-works" onclick="closeMobileMenu()" class="py-2.5 border-b border-slate-100">How It Works</a>
+                <a href="#benefits" onclick="closeMobileMenu()" class="py-2.5 border-b border-slate-100">Benefits</a>
+                <a href="#technology" onclick="closeMobileMenu()" class="py-2.5 border-b border-slate-100">Technology</a>
+                <a href="#faqs" onclick="closeMobileMenu()" class="py-2.5 border-b border-slate-100">FAQs</a>
+                <a href="#additional-services" onclick="closeMobileMenu()" class="py-2.5 border-b border-slate-100">More Services</a>
+                <a href="mailto:Waste@VikingValetWaste.com?subject=Quote%20Request%20-%20Viking%20Valet%20Waste&body=Property%20Name%3A%0AApproximate%20Unit%20Count%3A%0ABest%20Phone%20Number%3A%0A" class="btn-primary text-center py-3 mt-2">Request a Quote</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         HERO
+    ═══════════════════════════════════════════════════════════ -->
+    <header class="relative pb-28 overflow-hidden"
+            style="background-color:#1F3460; padding-top:9rem;">
+        <!-- Hero photo background -->
+        <div class="absolute inset-0" style="
+            background-image: url('assets/hero-bg.jpg');
+            background-size: cover;
+            background-position: center 40%;
+            opacity: .38;
+        "></div>
+        <!-- Navy overlay — lighter so the page reads brighter -->
+        <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(20,40,90,.60) 0%, rgba(20,40,90,.78) 60%, rgba(20,40,90,.92) 100%);"></div>
+        <!-- gold glow — stronger -->
+        <div class="absolute inset-0 pointer-events-none"
+             style="background:radial-gradient(ellipse at 65% 25%, rgba(212,178,80,.22) 0%, transparent 55%);"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <span class="pill mb-6" style="background:rgba(201,168,76,.15);color:var(--gold);border-color:rgba(201,168,76,.4);">
+                ★ Efficiency &nbsp;·&nbsp; Value &nbsp;·&nbsp; Partnership ★
+            </span>
+
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight max-w-4xl mx-auto leading-tight mt-4">
+                Doorstep Trash Pickup<br>
+                <span style="color:var(--gold);">Engineered for Excellence</span>
+            </h1>
+
+            <p class="mt-6 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed" style="color:rgba(255,255,255,.75);">
+                Boost your community's asset value, eliminate maintenance headaches, and deliver the <strong style="color:#fff;">#1 voted resident amenity</strong>. Powered by relentless efficiency and true partnership.
+            </p>
+
+            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="mailto:Waste@VikingValetWaste.com?subject=Quote%20Request%20-%20Viking%20Valet%20Waste&body=Property%20Name%3A%0AApproximate%20Unit%20Count%3A%0ABest%20Phone%20Number%3A%0A" class="btn-primary w-full sm:w-auto text-center px-8 py-4 text-base">
+                    Request a Quote
+                </a>
+                <a href="#how-it-works" class="w-full sm:w-auto text-center px-8 py-4 text-base rounded-xl font-bold border-2 transition-all"
+                   style="border-color:rgba(255,255,255,.35);color:#fff;"
+                   onmouseover="this.style.background='rgba(255,255,255,.1)'"
+                   onmouseout="this.style.background='transparent'">
+                    See How It Works
+                </a>
+            </div>
+
+            <!-- Stats row — data sourced from industry benchmarks -->
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto text-center">
+                <div>
+                    <div class="stat-num">5×</div>
+                    <div class="text-sm mt-1" style="color:rgba(255,255,255,.70);">Nightly Pickups Per Week</div>
+                </div>
+                <div>
+                    <div class="stat-num">#1</div>
+                    <div class="text-sm mt-1" style="color:rgba(255,255,255,.70);">Voted Resident Amenity</div>
+                </div>
+                <div>
+                    <div class="stat-num">100%</div>
+                    <div class="text-sm mt-1" style="color:rgba(255,255,255,.70);">W-2 Background-Checked Staff</div>
+                </div>
+                <div>
+                    <div class="stat-num">$0</div>
+                    <div class="text-sm mt-1" style="color:rgba(255,255,255,.70);">Startup Cost to Properties</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         THE VIKING PILLARS
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="pillars" class="section-light py-24">
+        <div class="reveal max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="pill">Our Foundation</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-4" style="color:var(--navy);">
+                    The Viking Pillars
+                </h2>
+                <p class="mt-4 text-slate-500 leading-relaxed">Our service is engineered around three uncompromising commitments that create mutual victories for every property and every resident.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Efficiency -->
+                <div class="card p-8">
+                    <div class="icon-badge-lg mb-6"><i class="fa-solid fa-bolt"></i></div>
+                    <h3 class="text-xl font-extrabold mb-3" style="color:var(--navy);">EFFICIENCY</h3>
+                    <p class="text-slate-500 leading-relaxed text-sm">A proven, seamless door-to-compactor workflow utilizing real-time GPS tracking and nightly digital reporting. No guesswork, no dumpster drama.</p>
+                </div>
+                <!-- Value -->
+                <div class="card p-8" style="border-color:var(--gold);box-shadow:0 0 0 1px var(--gold), 0 8px 32px rgba(201,168,76,.12);">
+                    <div class="icon-badge-lg mb-6"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                    <h3 class="text-xl font-extrabold mb-3" style="color:var(--navy);">VALUE</h3>
+                    <p class="text-slate-500 leading-relaxed text-sm">An absolute win-win. Generate a guaranteed, risk-free stream of ancillary income for your property while providing a luxury service residents are happy to pay for.</p>
+                </div>
+                <!-- Partnership -->
+                <div class="card p-8">
+                    <div class="icon-badge-lg mb-6"><i class="fa-solid fa-handshake-angle"></i></div>
+                    <h3 class="text-xl font-extrabold mb-3" style="color:var(--navy);">PARTNERSHIP</h3>
+                    <p class="text-slate-500 leading-relaxed text-sm">We function as an extension of your onsite team. With dedicated district managers and uniformed W-2 employees, we treat your property like our own.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         WHAT IS VALET TRASH?
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section-alt py-20">
+        <div class="reveal max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
+                <div>
+                    <span class="pill">The Basics</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mt-4 mb-6" style="color:var(--navy);">What Is Valet Trash?</h2>
+                    <p class="text-slate-600 leading-relaxed mb-5">
+                        Valet trash is a <strong style="color:var(--navy);">doorstep waste collection service</strong> offered to multifamily apartment communities. Instead of residents carrying their bags down hallways, stairs, and parking lots to a distant dumpster, a uniformed valet collects bags directly from outside each unit door — typically five nights a week.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed mb-5">
+                        Unlike a gym or pool that only some residents use, <strong style="color:var(--navy);">every single resident</strong> generates trash — making valet waste the one amenity with universal daily value. Property managers across the country consistently rank it the <strong style="color:var(--navy);">#1 amenity residents say they can't live without</strong>.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed">
+                        For properties, it's also a <strong style="color:var(--navy);">direct revenue opportunity</strong>. Properties collect a per-door service fee from residents, pay the valet provider, and keep the margin — turning what used to be a headache into a monthly profit center.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed mt-5">
+                        Scheduling flexes to fit each community — most properties run Sunday through Thursday, though five- to seven-night coverage is available for larger portfolios. Many partnerships also fold in recycling participation and waste-sorting guidance, so communities can improve diversion rates and cut down on landfill contributions alongside the doorstep convenience.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="card p-6 text-center">
+                        <div class="text-3xl font-extrabold mb-2" style="color:var(--gold);">5×</div>
+                        <div class="text-sm font-semibold" style="color:var(--navy);">Per Week Pickup</div>
+                        <div class="text-xs text-slate-400 mt-1">Sun – Thu nightly</div>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <div class="text-3xl font-extrabold mb-2" style="color:var(--gold);">$25–$35</div>
+                        <div class="text-sm font-semibold" style="color:var(--navy);">Avg. Resident Fee</div>
+                        <div class="text-xs text-slate-400 mt-1">Per door / month</div>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <div class="text-3xl font-extrabold mb-2" style="color:var(--gold);">Top 3</div>
+                        <div class="text-sm font-semibold" style="color:var(--navy);">Resident Wish-List</div>
+                        <div class="text-xs text-slate-400 mt-1">Consistently ranked</div>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <div class="text-3xl font-extrabold mb-2" style="color:var(--gold);">$0</div>
+                        <div class="text-sm font-semibold" style="color:var(--navy);">Startup Cost</div>
+                        <div class="text-xs text-slate-400 mt-1">To your property</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         HOW IT WORKS
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="how-it-works" class="section-alt py-24" style="position:relative;overflow:hidden;">
+        <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(238,243,255,.92) 0%,rgba(238,243,255,.97) 100%);"></div>
+        <div class="reveal max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position:relative;z-index:1;">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="pill">The Process</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-4" style="color:var(--navy);">
+                    Seamless 3-Step Process
+                </h2>
+                <p class="mt-4 text-slate-500">Luxury property sanitation simple enough to run on autopilot five nights a week.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 relative">
+                <!-- connector lines (desktop only) -->
+                <div class="hidden md:block absolute top-10 left-[calc(33%-2px)] w-[calc(34%+4px)] h-0.5" style="background:linear-gradient(90deg,var(--gold),var(--gold-light));opacity:.5;"></div>
+                <div class="hidden md:block absolute top-10 left-[calc(66%-2px)] w-[calc(34%+4px)] h-0.5" style="background:linear-gradient(90deg,var(--gold-light),var(--gold-pale));opacity:.5;"></div>
+
+                <div class="text-center">
+                    <div class="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto text-3xl font-extrabold text-white mb-6 shadow-lg"
+                         style="background:var(--navy);">1</div>
+                    <h3 class="text-lg font-bold mb-2" style="color:var(--navy);">Doorstep Placement</h3>
+                    <p class="text-slate-500 text-sm max-w-xs mx-auto">Residents place bagged, tied waste in their provided 13-gallon leak-proof containers outside their doors by 8 PM.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto text-3xl font-extrabold text-white mb-6 shadow-lg"
+                         style="background:var(--gold);">2</div>
+                    <h3 class="text-lg font-bold mb-2" style="color:var(--navy);">Professional Collection</h3>
+                    <p class="text-slate-500 text-sm max-w-xs mx-auto">Uniformed, background-checked valets collect waste from every unit overnight, Sunday–Thursday.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto text-3xl font-extrabold text-white mb-6 shadow-lg"
+                         style="background:var(--navy);">3</div>
+                    <h3 class="text-lg font-bold mb-2" style="color:var(--navy);">Direct-to-Dumpster Disposal</h3>
+                    <p class="text-slate-500 text-sm max-w-xs mx-auto">Valets transport waste to on-site compactors using leak-proof carts, leaving hallways immaculate every night.</p>
+                </div>
+            </div>
+
+            <!-- Infographic full-width -->
+            <div class="mt-16 max-w-4xl mx-auto">
+                <div class="rounded-2xl shadow-2xl overflow-hidden" style="background:#fff;border:1px solid #E2E8F0;">
+                    <img src="assets/Modernizing_Multifamily_Waste_Management.png"
+                         alt="Valet Trash Advantage – How the Service Works"
+                         class="w-full h-auto block">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         WIN-WIN-WIN IMPACT (Community Benefits)
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section-light py-24" style="position:relative;overflow:hidden;">
+        <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.97) 100%);"></div>
+        <div class="reveal max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position:relative;z-index:1;">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="pill">Why It Works</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-4" style="color:var(--navy);">
+                    The "Win-Win-Win" Impact
+                </h2>
+                <p class="mt-4 text-slate-500">Three groups. Three victories. One premium service.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div class="card p-8 text-center">
+                    <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl" style="background:var(--gold-pale);color:var(--gold);">
+                        <i class="fa-solid fa-medal"></i>
+                    </div>
+                    <h3 class="text-lg font-extrabold mb-2" style="color:var(--navy);">#1 Voted Resident Amenity</h3>
+                    <p class="text-slate-500 text-sm">Consistently ranked a top-three desired service that improves resident retention and satisfaction scores.</p>
+                </div>
+                <div class="card p-8 text-center" style="border-color:var(--gold);box-shadow:0 0 0 1px var(--gold), 0 8px 32px rgba(201,168,76,.12);">
+                    <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl" style="background:var(--gold-pale);color:var(--gold);">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-lg font-extrabold mb-2" style="color:var(--navy);">New Revenue Stream</h3>
+                    <p class="text-slate-500 text-sm">Provides property owners with a no-risk monthly supplemental income source that directly increases Net Operating Income.</p>
+                </div>
+                <div class="card p-8 text-center">
+                    <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl" style="background:var(--gold-pale);color:var(--gold);">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+                    <h3 class="text-lg font-extrabold mb-2" style="color:var(--navy);">Enhanced Community Appeal</h3>
+                    <p class="text-slate-500 text-sm">Eliminates trash heaps during leasing hours and reduces maintenance stress for on-site staff every day.</p>
+                </div>
+            </div>
+
+            <!-- Infographic full-width -->
+            <div class="max-w-4xl mx-auto">
+                <div class="rounded-2xl shadow-2xl overflow-hidden" style="background:#fff;border:1px solid #E2E8F0;">
+                    <img src="assets/win-win-win-infographic.jpg"
+                         alt="Valet Trash Community Benefits"
+                         class="w-full h-auto block">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TAILORED VALUE TABS (Benefits)
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="benefits" class="section-alt py-24 rounded-tl-[10px] rounded-tr-[10px] rounded-br-[10px] rounded-bl-[10px]">
+        <div class="reveal max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="pill">Who We Serve</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-4" style="color:var(--navy);">Tailored Value For Everyone</h2>
+                <p class="mt-4 text-slate-500">Choose who you want to see benefits for below.</p>
+
+                <div class="mt-8 inline-flex p-1.5 rounded-xl border gap-1" style="background:#EEF2FF;border-color:#E2E8F0;">
+                    <button onclick="switchTab('pm')" id="tab-btn-pm" class="tab-btn active">
+                        For Property Managers
+                    </button>
+                    <button onclick="switchTab('res')" id="tab-btn-res" class="tab-btn">
+                        For Residents
+                    </button>
+                </div>
+            </div>
+
+            <!-- Property Managers Content -->
+            <div id="tab-content-pm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card p-6 flex gap-4">
+                    <div class="icon-badge"><i class="fa-solid fa-chart-line"></i></div>
+                    <div>
+                        <h4 class="font-bold mb-1" style="color:var(--navy);">Boost Net Operating Income (NOI)</h4>
+                        <p class="text-slate-500 text-sm">Turn waste management into a dependable, predictable revenue channel with zero investment risk.</p>
+                    </div>
+                </div>
+                <div class="card p-6 flex gap-4">
+                    <div class="icon-badge"><i class="fa-solid fa-sparkles"></i></div>
+                    <div>
+                        <h4 class="font-bold mb-1" style="color:var(--navy);">Cleaner Communities</h4>
+                        <p class="text-slate-500 text-sm">Completely eliminate hallway stains, trash piles, and messy unapproved containers during primary leasing hours.</p>
+                    </div>
+                </div>
+                <div class="card p-6 flex gap-4">
+                    <div class="icon-badge"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div>
+                        <h4 class="font-bold mb-1" style="color:var(--navy);">Unmatched Accountability</h4>
+                        <p class="text-slate-500 text-sm">Full access to our dashboard with live GPS route logging, photo compliance notices, and nightly reports.</p>
+                    </div>
+                </div>
+                <div class="card p-6 flex gap-4">
+                    <div class="icon-badge"><i class="fa-solid fa-people-group"></i></div>
+                    <div>
+                        <h4 class="font-bold mb-1" style="color:var(--navy);">Lighten Maintenance Loads</h4>
+                        <p class="text-slate-500 text-sm">Free up onsite maintenance techs to focus on critical work orders instead of dragging trash bags nightly.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Residents Content (Hidden) -->
+            <div id="tab-content-res" class="grid grid-cols-1 md:grid-cols-2 gap-6 hidden">
+                <div class="card p-6 flex gap-4">
+                    <div class="icon-badge"><i class="fa-solid fa-couch"></i></div>
+                    <div>
+                        <h4 class="font-bold mb-1" style="color:var(--navy);">Luxury Convenience</h4>
+                        <p class="text-slate-500 text-sm">No more lugging heavy, dripping bags down flights of stairs or through parking lots late at night.</p>
+                    </div>
+                </div>
+                <div class="card p-6 flex gap-4">
+                    <div class="icon-badge"><i class="fa-solid fa-eye"></i></div>
+                    <div>
+                        <h4 class="font-bold mb-1" style="color:var(--navy);">Enhanced Community Safety</h4>
+                        <p class="text-slate-500 text-sm">Uniformed, background-checked W-2 staff on property during dusk hours provides a natural crime deterrent.</p>
+                    </div>
+                </div>
+                <div class="card p-6 flex gap-4">
+                    <div class="icon-badge"><i class="fa-solid fa-mobile-screen"></i></div>
+                    <div>
+                        <h4 class="font-bold mb-1" style="color:var(--navy);">Seamless Mobile App</h4>
+                        <p class="text-slate-500 text-sm">Track collection schedules, view placement guidelines, and log service requests directly from your phone.</p>
+                    </div>
+                </div>
+                <div class="card p-6 flex gap-4">
+                    <div class="icon-badge"><i class="fa-solid fa-house-chimney-window"></i></div>
+                    <div>
+                        <h4 class="font-bold mb-1" style="color:var(--navy);">Immaculate Hallways</h4>
+                        <p class="text-slate-500 text-sm">Enjoy odor-free walkways and clean breezeways that make coming home a premium experience every day.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         COMPARISON TABLE
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section-navy py-24" style="position:relative;overflow:hidden;">
+        <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(27,42,74,.88) 0%,rgba(27,42,74,.95) 100%);"></div>
+        <div class="reveal max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" style="position:relative;z-index:1;">
+            <div class="text-center mb-14">
+                <span class="pill" style="background:rgba(201,168,76,.2);color:var(--gold);border-color:rgba(201,168,76,.4);">By the Numbers</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4">
+                    Viking Valet Waste vs. Traditional Disposal
+                </h2>
+                <p class="mt-4" style="color:rgba(255,255,255,.65);">See exactly how we stack up on the metrics that matter most.</p>
+            </div>
+
+            <div class="rounded-2xl overflow-hidden border" style="border-color:rgba(255,255,255,.12);">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr style="background:rgba(255,255,255,.06);">
+                            <th class="text-left px-6 py-4 font-bold" style="color:rgba(255,255,255,.6);">Feature</th>
+                            <th class="px-6 py-4 font-bold text-center" style="color:var(--gold);">Viking Valet Waste</th>
+                            <th class="px-6 py-4 font-bold text-center" style="color:rgba(255,255,255,.45);">Traditional Disposal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-top:1px solid rgba(255,255,255,.08);">
+                            <td class="px-6 py-4 text-white font-medium">Pickup Frequency</td>
+                            <td class="px-6 py-4 text-center font-bold" style="color:var(--gold);">5 Nights Per Week</td>
+                            <td class="px-6 py-4 text-center" style="color:rgba(255,255,255,.45);">Resident Dependent</td>
+                        </tr>
+                        <tr style="border-top:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);">
+                            <td class="px-6 py-4 text-white font-medium">GPS & Nightly Photo Logs</td>
+                            <td class="px-6 py-4 text-center"><i class="fa-solid fa-circle-check text-green-400 text-lg"></i></td>
+                            <td class="px-6 py-4 text-center"><i class="fa-solid fa-circle-xmark text-red-400 text-lg"></i></td>
+                        </tr>
+                        <tr style="border-top:1px solid rgba(255,255,255,.08);">
+                            <td class="px-6 py-4 text-white font-medium">Property Cleanliness</td>
+                            <td class="px-6 py-4 text-center font-bold" style="color:var(--gold);">Managed & Reported</td>
+                            <td class="px-6 py-4 text-center" style="color:rgba(255,255,255,.45);">Overflowing Dumpsters</td>
+                        </tr>
+                        <tr style="border-top:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);">
+                            <td class="px-6 py-4 text-white font-medium">Background-Checked W-2 Staff</td>
+                            <td class="px-6 py-4 text-center"><i class="fa-solid fa-circle-check text-green-400 text-lg"></i></td>
+                            <td class="px-6 py-4 text-center"><i class="fa-solid fa-circle-xmark text-red-400 text-lg"></i></td>
+                        </tr>
+                        <tr style="border-top:1px solid rgba(255,255,255,.08);">
+                            <td class="px-6 py-4 text-white font-medium">Revenue Potential</td>
+                            <td class="px-6 py-4 text-center font-bold" style="color:var(--gold);">Monthly Profit Center</td>
+                            <td class="px-6 py-4 text-center" style="color:rgba(255,255,255,.45);">Pure Expense</td>
+                        </tr>
+                        <tr style="border-top:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);">
+                            <td class="px-6 py-4 text-white font-medium">Resident Satisfaction</td>
+                            <td class="px-6 py-4 text-center font-bold" style="color:var(--gold);">#1 Rated Amenity</td>
+                            <td class="px-6 py-4 text-center" style="color:rgba(255,255,255,.45);">Source of Complaints</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Business Overview infographic full-width -->
+            <div class="mt-14 max-w-4xl mx-auto">
+                <div class="rounded-2xl shadow-2xl overflow-hidden" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);">
+                    <img src="assets/efficiency-value-partnership-infographic.jpg"
+                         alt="Viking Valet Waste Business Overview"
+                         class="w-full h-auto block">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TECHNOLOGY
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="technology" class="section-light py-24">
+        <div class="reveal max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="pill">Our Tech Stack</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-4" style="color:var(--navy);">
+                    Real-Time Transparency. Every Single Night.
+                </h2>
+                <p class="mt-4 text-slate-500">Our custom tracking stack guarantees complete clarity and service reporting on every shift.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Manager portal -->
+                <div class="card p-8">
+                    <div class="text-xs font-bold uppercase tracking-wider mb-2" style="color:var(--gold);">For Management</div>
+                    <h3 class="text-2xl font-extrabold mb-4" style="color:var(--navy);">The Property Manager Portal</h3>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">Log in anytime to see live GPS valet routes, download audit reports, and review photo-documented compliance alerts for your community records.</p>
+                    <div class="terminal text-slate-300">
+                        <div class="flex items-center gap-2 text-green-400 mb-2 text-xs">
+                            <span class="w-2 h-2 rounded-full bg-green-400 inline-block animate-pulse"></span>
+                            Service Complete: 100%
+                        </div>
+                        <div class="text-xs mb-1">&gt; Route finalized at 11:42 PM</div>
+                        <div class="text-xs">&gt; 2 Compliance photos uploaded for Unit 204</div>
+                    </div>
+                </div>
+                <!-- Resident app -->
+                <div class="card p-8">
+                    <div class="text-xs font-bold uppercase tracking-wider mb-2" style="color:var(--gold);">For Residents</div>
+                    <h3 class="text-2xl font-extrabold mb-4" style="color:var(--navy);">The Resident Mobile App</h3>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">Get automated push reminders for pickup windows, view local container placement rules, and easily check valet status directly from your phone.</p>
+                    <div class="terminal text-slate-300">
+                        <div class="flex items-center gap-2 text-yellow-400 mb-2 text-xs">
+                            <i class="fa-solid fa-bell"></i>
+                            Push Notification Sent
+                        </div>
+                        <div class="text-xs">"Viking Valet alert: Please place your tied trash bags outside by 8:00 PM tonight."</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TESTIMONIALS
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section-light py-24">
+        <div class="reveal max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="pill">What Managers Say</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-4" style="color:var(--navy);">
+                    Trusted by Property Teams
+                </h2>
+                <p class="mt-4 text-slate-500">Placeholder quotes — swap in your own client testimonials once you have them on file.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="testi-card">
+                    <p class="text-slate-600 text-sm leading-relaxed mt-6 mb-4">"Since bringing on Viking Valet Waste, our breezeways are spotless every morning and our office fields far fewer trash complaints."</p>
+                    <div class="flex items-center gap-3 mt-4">
+                        <div class="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm" style="background:var(--navy);">A</div>
+                        <div>
+                            <div class="font-bold text-sm" style="color:var(--navy);">[Add Client Name]</div>
+                            <div class="text-xs text-slate-400">Property Manager</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card" style="border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 8px 32px rgba(201,168,76,.10);">
+                    <p class="text-slate-600 text-sm leading-relaxed mt-6 mb-4">"The nightly reporting gives our team real visibility, and residents mention the service as a reason they renewed their lease."</p>
+                    <div class="flex items-center gap-3 mt-4">
+                        <div class="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm" style="background:var(--gold);">B</div>
+                        <div>
+                            <div class="font-bold text-sm" style="color:var(--navy);">[Add Client Name]</div>
+                            <div class="text-xs text-slate-400">Community Director</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <p class="text-slate-600 text-sm leading-relaxed mt-6 mb-4">"Onboarding was simple and our maintenance team no longer spends nights hauling bags to the compactor. It just runs."</p>
+                    <div class="flex items-center gap-3 mt-4">
+                        <div class="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm" style="background:var(--navy);">C</div>
+                        <div>
+                            <div class="font-bold text-sm" style="color:var(--navy);">[Add Client Name]</div>
+                            <div class="text-xs text-slate-400">CAM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         QUOTE FORM
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="quote-form" class="section-alt py-24">
+        <div class="reveal max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="pill">Get Started</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-4" style="color:var(--navy);">Request a Custom Proposal</h2>
+                <p class="mt-4 text-slate-500">Tell us about your property and we'll build a tailored plan that generates income and keeps your community pristine.</p>
+            </div>
+
+            <div class="card p-8 relative">
+                <!--
+                    FORMSPREE SETUP:
+                    1. Go to https://formspree.io, sign up free, create a new form.
+                    2. Copy the endpoint they give you (looks like https://formspree.io/f/xxxxxxxx)
+                    3. Paste it in place of YOUR_FORM_ID below.
+                -->
+                <form id="quote-form-el" onsubmit="handleFormSubmit(event)" class="space-y-6"
+                      action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="form-label">Property Name</label>
+                            <input type="text" name="property_name" required placeholder="e.g. The Pines at Lakewood" class="form-input">
+                        </div>
+                        <div>
+                            <label class="form-label">Total Unit Count</label>
+                            <select name="unit_count" required class="form-input">
+                                <option value="">Select Portfolio Size…</option>
+                                <option value="1-100">1 – 100 Units</option>
+                                <option value="101-250">101 – 250 Units</option>
+                                <option value="251-500">251 – 500 Units</option>
+                                <option value="500+">500+ Units</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="form-label">Contact Email</label>
+                            <input type="email" name="email" required placeholder="name@company.com" class="form-input">
+                        </div>
+                        <div>
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" name="phone" required placeholder="(555) 000-0000" class="form-input">
+                        </div>
+                    </div>
+                    <!-- Honeypot field to cut down on spam bots -->
+                    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+                    <!-- Nicer email subject line in your inbox -->
+                    <input type="hidden" name="_subject" value="New Viking Valet Waste Proposal Request">
+
+                    <button type="submit" id="quote-submit-btn" class="btn-primary w-full py-4 text-base">
+                        Generate My Custom Proposal
+                    </button>
+                    <p id="form-error-msg" class="form-error text-center">Something went wrong sending your request. Please call or email us directly below.</p>
+                    <p class="text-center text-xs text-slate-400">Or reach us at <a href="tel:7637727592" class="font-bold underline" style="color:var(--gold);">(763) 772-7592</a> · <a href="mailto:Waste@VikingValetWaste.com" class="font-bold underline" style="color:var(--gold);">Waste@VikingValetWaste.com</a></p>
+                </form>
+
+                <!-- Success state -->
+                <div id="form-success" class="hidden absolute inset-0 bg-white rounded-2xl flex flex-col items-center justify-center p-8 text-center">
+                    <div class="w-16 h-16 rounded-full flex items-center justify-center text-3xl mb-4"
+                         style="background:var(--gold-pale);color:var(--gold);">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <h3 class="text-2xl font-extrabold mb-2" style="color:var(--navy);">Proposal Requested!</h3>
+                    <p class="text-slate-500 text-sm max-w-sm">Thank you. Our Viking Waste team is already reviewing your property details and will be in touch shortly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         FAQ
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="faqs" class="section-light py-24">
+        <div class="reveal max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14">
+                <span class="pill">Questions</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-4" style="color:var(--navy);">Frequently Asked Questions</h2>
+                <p class="mt-4 text-slate-500">Everything you need to know about our premium service structures.</p>
+            </div>
+            <div class="space-y-4">
+                <div class="accordion-item card rounded-2xl overflow-hidden">
+                    <button onclick="toggleAccordion(this)" class="w-full text-left px-6 py-5 flex items-center justify-between font-bold text-base focus:outline-none cursor-pointer" style="color:var(--navy);">
+                        <span>How long are standard service contracts?</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300 accordion-icon" style="color:var(--gold);"></i>
+                    </button>
+                    <div class="accordion-content px-6 text-slate-500 text-sm leading-relaxed">
+                        <p class="pb-5">Our standard, value-optimized partnerships run between 36 to 60 months, allowing us to fully invest in your community's custom bins, local staffing infrastructure, and technology setup. Shorter, customized trial lengths are available upon request.</p>
+                    </div>
+                </div>
+                <div class="accordion-item card rounded-2xl overflow-hidden">
+                    <button onclick="toggleAccordion(this)" class="w-full text-left px-6 py-5 flex items-center justify-between font-bold text-base focus:outline-none cursor-pointer" style="color:var(--navy);">
+                        <span>Are your valets fully background-checked?</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300 accordion-icon" style="color:var(--gold);"></i>
+                    </button>
+                    <div class="accordion-content px-6 text-slate-500 text-sm leading-relaxed">
+                        <p class="pb-5">Absolutely. 100% of our valets are uniformed, strictly background-checked, in-house W-2 employees—never outsourced or unvetted gig workers. Your property's safety is never compromised.</p>
+                    </div>
+                </div>
+                <div class="accordion-item card rounded-2xl overflow-hidden">
+                    <button onclick="toggleAccordion(this)" class="w-full text-left px-6 py-5 flex items-center justify-between font-bold text-base focus:outline-none cursor-pointer" style="color:var(--navy);">
+                        <span>What happens during severe or inclement weather?</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300 accordion-icon" style="color:var(--gold);"></i>
+                    </button>
+                    <div class="accordion-content px-6 text-slate-500 text-sm leading-relaxed">
+                        <p class="pb-5">Safety is paramount, but so is efficiency. Our district teams closely monitor conditions. In rare scenarios where driving puts valets at extreme risk, services are rescheduled and managers/residents receive automated alerts instantly via the app.</p>
+                    </div>
+                </div>
+                <div class="accordion-item card rounded-2xl overflow-hidden">
+                    <button onclick="toggleAccordion(this)" class="w-full text-left px-6 py-5 flex items-center justify-between font-bold text-base focus:outline-none cursor-pointer" style="color:var(--navy);">
+                        <span>How is the service priced?</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300 accordion-icon" style="color:var(--gold);"></i>
+                    </button>
+                    <div class="accordion-content px-6 text-slate-500 text-sm leading-relaxed">
+                        <p class="pb-5">We keep pricing simple, transparent, and built to drive your NOI. We charge a competitive flat monthly service fee calculated per door, customized to your regional labor rates and portfolio size. Contact us for a free proposal.</p>
+                    </div>
+                </div>
+                <div class="accordion-item card rounded-2xl overflow-hidden">
+                    <button onclick="toggleAccordion(this)" class="w-full text-left px-6 py-5 flex items-center justify-between font-bold text-base focus:outline-none cursor-pointer" style="color:var(--navy);">
+                        <span>Do you serve the Twin Cities / Minneapolis–St. Paul metro?</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300 accordion-icon" style="color:var(--gold);"></i>
+                    </button>
+                    <div class="accordion-content px-6 text-slate-500 text-sm leading-relaxed">
+                        <p class="pb-5">Yes — the greater Minneapolis–St. Paul metro area, including Eagan, Bloomington, Eden Prairie, and surrounding suburbs, is our home market. We understand the seasonal demands of Minnesota winters and have the local crew infrastructure to maintain 5-night-per-week service regardless of weather conditions.</p>
+                    </div>
+                </div>
+                <div class="accordion-item card rounded-2xl overflow-hidden">
+                    <button onclick="toggleAccordion(this)" class="w-full text-left px-6 py-5 flex items-center justify-between font-bold text-base focus:outline-none cursor-pointer" style="color:var(--navy);">
+                        <span>What size properties do you work with?</span>
+                        <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300 accordion-icon" style="color:var(--gold);"></i>
+                    </button>
+                    <div class="accordion-content px-6 text-slate-500 text-sm leading-relaxed">
+                        <p class="pb-5">We work with communities of all sizes — from boutique 50-unit buildings to large 500+ unit complexes. Our per-door pricing model scales cleanly with your portfolio, and we offer flexible start timelines so the transition is smooth no matter the size of your property.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         ADDITIONAL SERVICES
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="additional-services" class="section-alt py-24">
+        <div class="reveal max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="pill">Beyond the Doorstep</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-4" style="color:var(--navy);">
+                    Additional Services
+                </h2>
+                <p class="mt-4 text-slate-500">A full suite of amenity and grounds services so your community only needs one partner on the invoice.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="card p-6 flex gap-4">
+                    <div class="icon-badge"><i class="fa-solid fa-paw"></i></div>
+                    <div>
+                        <h4 class="font-bold mb-1" style="color:var(--navy);">Dog Waste Station Clean-Up</h4>
+                        <p class="text-slate-500 text-sm">Professional pet station maintenance and grounds cleaning to keep common areas presentable.</p>
+                    </div>
+                </div>
+                <div class="card p-6 flex gap-4">
+                    <div class="icon-badge"><i class="fa-solid fa-box"></i></div>
+                    <div>
+                        <h4 class="font-bold mb-1" style="color:var(--navy);">Bulk Item Removal</h4>
+                        <p class="text-slate-500 text-sm">Streamlined scheduling for furniture and large-item pickup, so your team never handles the heavy lifting.</p>
+                    </div>
+                </div>
+                <div class="card p-6 flex gap-4">
+                    <div class="icon-badge"><i class="fa-solid fa-recycle"></i></div>
+                    <div>
+                        <h4 class="font-bold mb-1" style="color:var(--navy);">Cardboard Box Break-Down</h4>
+                        <p class="text-slate-500 text-sm">Professional flattening and break-down of cardboard at collection, cutting down on common-area mess.</p>
+                    </div>
+                </div>
+                <div class="card p-6 flex gap-4">
+                    <div class="icon-badge"><i class="fa-solid fa-truck"></i></div>
+                    <div>
+                        <h4 class="font-bold mb-1" style="color:var(--navy);">Dumpster Rental</h4>
+                        <p class="text-slate-500 text-sm">Convenient, temporary dumpsters for renovation, turnover, or cleanout projects on your timeline.</p>
+                    </div>
+                </div>
+                <div class="card p-6 flex gap-4">
+                    <div class="icon-badge"><i class="fa-solid fa-truck-ramp-box"></i></div>
+                    <div>
+                        <h4 class="font-bold mb-1" style="color:var(--navy);">Junk Hauling</h4>
+                        <p class="text-slate-500 text-sm">Complete junk removal service, from single items to full unit clear-outs between leases.</p>
+                    </div>
+                </div>
+                <div class="card p-6 flex gap-4">
+                    <div class="icon-badge"><i class="fa-solid fa-house-medical"></i></div>
+                    <div>
+                        <h4 class="font-bold mb-1" style="color:var(--navy);">Nursing & Senior Living Valet</h4>
+                        <p class="text-slate-500 text-sm">Custom, regulated valet and waste solutions tailored for elder care communities and compliant disposal needs.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Services infographic -->
+            <div class="max-w-4xl mx-auto">
+                <div class="rounded-2xl shadow-2xl overflow-hidden" style="background:#fff;border:1px solid #E2E8F0;">
+                    <img src="assets/other-services-infographic.png"
+                         alt="Viking Valet Waste — Other Services Offered"
+                         class="w-full h-auto block">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         FOOTER
+    ═══════════════════════════════════════════════════════════ -->
+    <footer class="section-navy py-12 border-t" style="border-color:rgba(255,255,255,.08);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <img src="assets/viking-logo.png"
+                     alt="Viking Valet Waste icon"
+                     style="height:60px;width:auto;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4));opacity:.95;">
+                <div>
+                    <div style="font-size:1.1rem;font-weight:900;letter-spacing:.05em;color:#fff;line-height:1.1;">VIKING VALET</div>
+                    <div style="font-size:.65rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);line-height:1;">WASTE</div>
+                </div>
+            </div>
+            <div class="text-center text-sm" style="color:rgba(255,255,255,.55);">
+                <p>&copy; 2026 Viking Valet Waste. All Rights Reserved.</p>
+                <p class="mt-1">
+                    <a href="mailto:Waste@VikingValetWaste.com"
+                       class="hover:text-white transition-colors"
+                       style="color:var(--gold);">Waste@VikingValetWaste.com</a>
+                </p>
+                <p class="mt-1">
+                    <a href="tel:7637727592"
+                       class="hover:text-white transition-colors"
+                       style="color:var(--gold);">(763) 772-7592</a>
+                </p>
+            </div>
+            <p class="text-xs tracking-widest" style="color:rgba(255,255,255,.3);">EFFICIENCY ★ VALUE ★ PARTNERSHIP</p>
+        </div>
+    </footer>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         JAVASCRIPT
+    ═══════════════════════════════════════════════════════════ -->
+    <script>
+        /* ── Navbar shadow on scroll ── */
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('nav-scrolled', window.scrollY > 10);
+        });
+
+        /* ── Mobile menu ── */
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            const btn = document.getElementById('mobile-menu-btn');
+            const isOpen = !menu.classList.contains('hidden');
+            if (isOpen) {
+                menu.classList.add('hidden');
+                icon.classList.replace('fa-xmark', 'fa-bars');
+                btn.setAttribute('aria-expanded', 'false');
+            } else {
+                menu.classList.remove('hidden');
+                icon.classList.replace('fa-bars', 'fa-xmark');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        }
+        function closeMobileMenu() {
+            document.getElementById('mobile-menu').classList.add('hidden');
+            document.getElementById('mobile-menu-icon').classList.replace('fa-xmark', 'fa-bars');
+            document.getElementById('mobile-menu-btn').setAttribute('aria-expanded', 'false');
+        }
+
+        /* ── Scroll reveal: fade/slide sections in as they enter view ── */
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        /* ── Audience tabs ── */
+        function switchTab(type) {
+            const btnPm  = document.getElementById('tab-btn-pm');
+            const btnRes = document.getElementById('tab-btn-res');
+            const cPm    = document.getElementById('tab-content-pm');
+            const cRes   = document.getElementById('tab-content-res');
+
+            if (type === 'pm') {
+                btnPm.classList.add('active');
+                btnRes.classList.remove('active');
+                cPm.classList.remove('hidden');
+                cRes.classList.add('hidden');
+            } else {
+                btnRes.classList.add('active');
+                btnPm.classList.remove('active');
+                cRes.classList.remove('hidden');
+                cPm.classList.add('hidden');
+            }
+        }
+
+        /* ── FAQ accordion ── */
+        function toggleAccordion(button) {
+            const item = button.closest('.accordion-item');
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.accordion-item').forEach(el => el.classList.remove('open'));
+            if (!isOpen) item.classList.add('open');
+        }
+
+        /* ── Form submit: sends to Formspree via fetch, keeps the nice success UI ── */
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const btn = document.getElementById('quote-submit-btn');
+            const errorMsg = document.getElementById('form-error-msg');
+
+            errorMsg.style.display = 'none';
+            btn.disabled = true;
+            btn.textContent = 'Sending…';
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    document.getElementById('form-success').classList.remove('hidden');
+                    form.reset();
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (err) {
+                errorMsg.style.display = 'block';
+                btn.disabled = false;
+                btn.textContent = 'Generate My Custom Proposal';
+            }
+        }
+    </script>
+</body>
+</html>
